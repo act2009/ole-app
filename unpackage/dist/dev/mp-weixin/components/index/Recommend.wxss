@@ -1,0 +1,30 @@
+
+.recommend.data-v-2f1e5ac8{
+	padding: 20rpx;
+}
+.recommend-item.data-v-2f1e5ac8{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	border-radius: 20rpx;
+	border: 2rpx solid #D8D8D8;
+	overflow: hidden;
+	margin: 20rpx 0;
+}
+.item-big.data-v-2f1e5ac8{
+	width: 100%;
+	height: 300rpx;
+}
+.item-small.data-v-2f1e5ac8{
+	width: 100%;
+	height: 240rpx;
+}
+.item-img.data-v-2f1e5ac8{
+	width: 33.33333%;
+	height: 240rpx;
+}
+

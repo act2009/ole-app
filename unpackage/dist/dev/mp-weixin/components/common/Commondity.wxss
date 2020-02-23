@@ -1,0 +1,39 @@
+
+.common-dity.data-v-c2f72494{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.commondity-item.data-v-c2f72494{
+	padding-bottom: 20rpx;
+}
+.commondity-img.data-v-c2f72494{
+	width: 100%;
+}
+.commondity-content.data-v-c2f72494{
+	text-align: center;
+}
+.commondity-name.data-v-c2f72494{
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient:vertical;
+	color: #333333;
+	word-break: break-all;
+	padding:6rpx 20rpx;
+}
+.oprice.data-v-c2f72494{
+	text-decoration:line-through;
+	color: #999999;
+	font-size: 24rpx;
+}
+.discount.data-v-c2f72494{
+	border-radius: 4rpx;
+	border: 1px solid #FF3333;
+	padding: 2rpx 10rpx;
+	font-size: 20rpx;
+	color:#FF3333;
+}
+
+
