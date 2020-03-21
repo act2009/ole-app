@@ -1,19 +1,19 @@
 
-.common-dity.data-v-c2f72494{
+.common-dity.data-v-0d9d638a{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 }
-.commondity-item.data-v-c2f72494{
+.commondity-item.data-v-0d9d638a{
 	padding-bottom: 20rpx;
 }
-.commondity-img.data-v-c2f72494{
+.commondity-img.data-v-0d9d638a{
 	width: 100%;
 }
-.commondity-content.data-v-c2f72494{
+.commondity-content.data-v-0d9d638a{
 	text-align: center;
 }
-.commondity-name.data-v-c2f72494{
+.commondity-name.data-v-0d9d638a{
 
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -23,12 +23,12 @@
 	word-break: break-all;
 	padding:6rpx 20rpx;
 }
-.oprice.data-v-c2f72494{
+.oprice.data-v-0d9d638a{
 	text-decoration:line-through;
 	color: #999999;
 	font-size: 24rpx;
 }
-.discount.data-v-c2f72494{
+.discount.data-v-0d9d638a{
 	border-radius: 4rpx;
 	border: 1px solid #FF3333;
 	padding: 2rpx 10rpx;

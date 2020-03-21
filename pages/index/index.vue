@@ -17,13 +17,20 @@
 		 </scroll-view>
 
 		 <swiper @change="onChangeTab" :current="topBarIndex" :style="'height:'+clientHight+'px;'">
-		 	<swiper-item v-for="(item,index) in topBar" :key="index">
+		 	<swiper-item v-for="(item,index) in newTopBar" :key="index">
 		 		<view class="home-data"> 
-				
-					<IndexSwiper></IndexSwiper>
-					<Recommend></Recommend>
-					<Card cardTitle="a"></Card>
-					<CommondityList></CommondityList>
+				  <block v-for="(k,i) in item.data" :key="i">
+					 <IndexSwiper v-if="k.type==='swiperList'" :dataList="k.data"></IndexSwiper>
+					 
+					 <template v-if="k.type==='recommendList'" >
+					 	<Recommend :dataList="k.data"></Recommend>
+					 	<Card cardTitle="猜你喜欢"></Card>
+					 </template>
+
+					 
+					 <CommondityList v-if="k.type==='commondityList'" :dataList="k.data" ></CommondityList> 
+				  </block>
+
 
 				</view>
 		 	</swiper-item>
@@ -41,7 +48,7 @@
 	  <CommondityList></CommondityList> -->
 	<!--其他模版：户外，推荐-->
 		  
-<!-- 	  <Banner></Banner>
+	  <Banner></Banner>
 	  <Icons></Icons>
 
 	<Card cardTitle="热销爆品"></Card>
@@ -49,7 +56,7 @@
 	<Card cardTitle="推荐店铺"></Card>
 	<Shop></Shop>
 	<Card cardTitle="为您推荐"></Card>
-	<CommondityList></CommondityList>	 -->
+	<CommondityList></CommondityList>	
 
 </view>
 </template>
@@ -75,13 +82,17 @@
 				clientHight:0,
 				//顶栏数据
 				topBar:[
-					{name:"推荐"},
-					{name:"运动户外"},
-					{name:"服饰内衣"},
-					{name:"鞋靴箱包"},
-					{name:"美妆个护"},
-					{name:"家居数码"},
-					{name:"食品母婴"}
+					// {name:"推荐"},
+					// {name:"运动户外"},
+					// {name:"服饰内衣"},
+					// {name:"鞋靴箱包"},
+					// {name:"美妆个护"},
+					// {name:"家居数码"},
+					// {name:"食品母婴"}
+					
+				],
+				//承载数据
+				newTopBar:[
 					
 				]
 			}
@@ -97,6 +108,9 @@
 			Shop,
 		},
 		onLoad() {
+			this.__init();
+
+			
 
 		},
 		onReady() {
@@ -107,6 +121,32 @@
 			}).exec();
 		},
 		methods: {
+			__init(){
+				uni.request({
+					url:"http://192.168.0.103:3000/api/index_list/data",
+					success: (res) => {
+						//console.log(res.data.data);
+						let data=res.data.data;
+						this.topBar=data.topBar;
+						this.newTopBar=this.initData(data);
+						
+					}})
+			},
+			initData(res){
+				let arr=[];
+				//console.log(this.topBar.length);
+				for(let i=0;i<this.topBar.length;i++){
+					let obj={data:[]};
+					//获取首次数据
+					if(i==0){
+						obj.data=res.data;
+					}
+					arr.push(obj);
+				}
+
+				
+				return arr;
+			},
 			changeTab(index){
 				if(this.topBarIndex===index){
 					return;

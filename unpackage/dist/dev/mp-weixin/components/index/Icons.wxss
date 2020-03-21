@@ -1,12 +1,12 @@
 
-.icons.data-v-b312cc0c{
+.icons.data-v-8b38fb82{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
 }
-.icons-item.data-v-b312cc0c{
+.icons-item.data-v-8b38fb82{
 	width: 25%;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -23,7 +23,7 @@
 	        justify-content: center;
 	padding-top: 20rpx;
 }
-.icons-img.data-v-b312cc0c{
+.icons-img.data-v-8b38fb82{
 	width: 110rpx;
 	height: 110rpx;
 }

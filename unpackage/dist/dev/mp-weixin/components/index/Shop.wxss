@@ -1,13 +1,13 @@
 
-.shop-big.data-v-777e2846{
+.shop-big.data-v-6fe0a361{
 		width: 100%;
 		height: 350rpx;
 }
-.scroll-content.data-v-777e2846{
+.scroll-content.data-v-6fe0a361{
 		width: 100%;
 /* 		white-space: nowrap; */
 }
-.scroll-item.data-v-777e2846{
+.scroll-item.data-v-6fe0a361{
 		display: inline-block;
 }
 

@@ -1,5 +1,5 @@
 
-.custom-nav.data-v-10e7f9f8{
+.custom-nav.data-v-6e86439f{
 	height: 200rpx;
 	width: 100%;
 	line-height: 200rpx;
@@ -14,17 +14,17 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.scroll-content.data-v-10e7f9f8{
+.scroll-content.data-v-6e86439f{
 	width: 100%;
 	height: 80rpx;
 	white-space: nowrap;
 }
-.scroll-item.data-v-10e7f9f8{
+.scroll-item.data-v-6e86439f{
 	font-size: 32rpx;
 	padding: 10rpx 30rpx;
 	display: inline-block;
 }
-.font-active-color.data-v-10e7f9f8{
+.font-active-color.data-v-6e86439f{
 	padding: 10rpx 0;
 	border-bottom: 6rpx solid #49DBFB;
 }
