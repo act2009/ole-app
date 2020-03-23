@@ -1,6 +1,6 @@
 <template>
 	<view class="hot">
-		<Commodity :dataList='hotList'></Commodity>
+		<Commondity  :dataList='hotList'></Commondity>
 		<Commondity  :dataList="hotList" itemW="33.3333%" itemH="220rpx"></Commondity>
 	</view>
 </template>

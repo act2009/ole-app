@@ -210,6 +210,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   data: function data() {
     return {
@@ -247,22 +264,30 @@ __webpack_require__.r(__webpack_exports__);
     Shop: Shop },
 
   onLoad: function onLoad() {
+    this.getClientHeight();
     this.__init();
 
 
 
   },
   onReady: function onReady() {var _this = this;
-    var view = uni.createSelectorQuery().select('.home-data');
-    view.boundingClientRect(function (data) {
-      _this.clientHight = data.height;
-      // console.log(data.height);
-    }).exec();
+    // 			let view=uni.createSelectorQuery().select('.home-data');
+    // 			view.boundingClientRect(data => {
+    // 				this.clientHight=data.height;
+    // // console.log(data.height);
+    // 			}).exec();
+    uni.getSystemInfo({
+      success: function success(res) {
+        //	console.log(res);
+        _this.clientHight = res.windowHeight - uni.upx2px(80) - _this.getClientHeight();
+      } });
+
   },
   methods: {
+    //getdata
     __init: function __init() {var _this2 = this;
       uni.request({
-        url: "http://192.168.0.103:3000/api/index_list/data",
+        url: "http://192.168.0.3:3000/api/index_list/data",
         success: function success(res) {
           //console.log(res.data.data);
           var data = res.data.data;
@@ -271,6 +296,7 @@ __webpack_require__.r(__webpack_exports__);
 
         } });
     },
+    //add data
     initData: function initData(res) {
       var arr = [];
       //console.log(this.topBar.length);
@@ -286,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
 
       return arr;
     },
+    //switch click topBar
     changeTab: function changeTab(index) {
       if (this.topBarIndex === index) {
         return;
@@ -293,8 +320,22 @@ __webpack_require__.r(__webpack_exports__);
       this.topBarIndex = index;
       this.scrollIntoIndex = 'top' + index;
     },
+    //finger move
     onChangeTab: function onChangeTab(e) {
       this.changeTab(e.detail.current);
+    },
+    //获取可视区高度
+    getClientHeight: function getClientHeight() {
+      var res = uni.getSystemInfoSync();
+      console.log(res.platform, res.statusBarHeight);
+      var system = res.platform;
+      if (system === 'android') {
+        return 48 + res.statusBarHeight;
+      } else if (system === 'ios') {
+        return 44 + res.statusBarHeight;
+      } else {
+        return 0;
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

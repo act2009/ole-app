@@ -18,21 +18,33 @@
 
 		 <swiper @change="onChangeTab" :current="topBarIndex" :style="'height:'+clientHight+'px;'">
 		 	<swiper-item v-for="(item,index) in newTopBar" :key="index">
-		 		<view class="home-data"> 
-				  <block v-for="(k,i) in item.data" :key="i">
-					 <IndexSwiper v-if="k.type==='swiperList'" :dataList="k.data"></IndexSwiper>
-					 
-					 <template v-if="k.type==='recommendList'" >
-					 	<Recommend :dataList="k.data"></Recommend>
-					 	<Card cardTitle="猜你喜欢"></Card>
-					 </template>
+		 		<!-- <view class="home-data"> </view> -->
+				<scroll-view  scroll-y="true" :style="'height:'+clientHight+'px;'">
+	
+	<block v-if="item.data.length > 0">
+		
+				
+<block  v-for="(k,i) in item.data" :key="i">
+	<IndexSwiper v-if="k.type==='swiperList'" :dataList="k.data"></IndexSwiper>
 
-					 
-					 <CommondityList v-if="k.type==='commondityList'" :dataList="k.data" ></CommondityList> 
-				  </block>
+	<template v-if="k.type==='recommendList'" >
+	<Recommend :dataList="k.data"></Recommend>
+	<Card cardTitle="猜你喜欢"></Card>
+	</template>
 
 
-				</view>
+	<CommondityList v-if="k.type==='commondityList'" :dataList="k.data" ></CommondityList>
+</block>
+</block>
+<view v-else>
+	没有了，没有数据了。
+</view>
+						
+</scroll-view>
+
+
+
+				
 		 	</swiper-item>
 
 		 </swiper>
@@ -48,7 +60,7 @@
 	  <CommondityList></CommondityList> -->
 	<!--其他模版：户外，推荐-->
 		  
-	  <Banner></Banner>
+<!-- 	  <Banner></Banner>
 	  <Icons></Icons>
 
 	<Card cardTitle="热销爆品"></Card>
@@ -56,7 +68,7 @@
 	<Card cardTitle="推荐店铺"></Card>
 	<Shop></Shop>
 	<Card cardTitle="为您推荐"></Card>
-	<CommondityList></CommondityList>	
+	<CommondityList></CommondityList>	 -->
 
 </view>
 </template>
@@ -108,22 +120,30 @@
 			Shop,
 		},
 		onLoad() {
+			this.getClientHeight();
 			this.__init();
 
 			
 
 		},
 		onReady() {
-			let view=uni.createSelectorQuery().select('.home-data');
-			view.boundingClientRect(data => {
-				this.clientHight=data.height;
-// console.log(data.height);
-			}).exec();
+// 			let view=uni.createSelectorQuery().select('.home-data');
+// 			view.boundingClientRect(data => {
+// 				this.clientHight=data.height;
+// // console.log(data.height);
+// 			}).exec();
+            uni.getSystemInfo({
+				success: (res) => {
+				//	console.log(res);
+					this.clientHight=res.windowHeight-uni.upx2px(80)-this.getClientHeight();
+				}
+			});
 		},
 		methods: {
+			//getdata
 			__init(){
 				uni.request({
-					url:"http://192.168.0.103:3000/api/index_list/data",
+					url:"http://192.168.0.3:3000/api/index_list/data",
 					success: (res) => {
 						//console.log(res.data.data);
 						let data=res.data.data;
@@ -132,6 +152,7 @@
 						
 					}})
 			},
+			//add data
 			initData(res){
 				let arr=[];
 				//console.log(this.topBar.length);
@@ -147,6 +168,7 @@
 				
 				return arr;
 			},
+			//switch click topBar
 			changeTab(index){
 				if(this.topBarIndex===index){
 					return;
@@ -154,15 +176,32 @@
 				this.topBarIndex=index;
 				this.scrollIntoIndex='top'+index;
 			},
+			//finger move
 			onChangeTab(e){
 				this.changeTab(e.detail.current);
+			},
+			//获取可视区高度
+			getClientHeight(){
+				const res=uni.getSystemInfoSync();
+				console.log(res.platform,res.statusBarHeight);
+				const system=res.platform;
+				if(system==='android'){
+					return 48+res.statusBarHeight;
+				}else if(system==='ios'){
+					return 44+res.statusBarHeight;
+				}else{
+					return 0;
+				}
 			}
-
+            
 		}
 	}
 </script>
 
 <style scoped>
+	.demo1{
+		background-color:#007AFF;
+	}
 
 	.custom-nav{
 		height: 200rpx;

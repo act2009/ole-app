@@ -7,7 +7,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/api/index_list/data', function(req, res, next) {
+	 res.writeHead(200, { "Content-Type":"text/html" , "Access-Control-Allow-Origin":"*"});
 	res.send({
+		
 		"code":0,
 		"data":{
 			topBar:[
