@@ -31,9 +31,34 @@
 	<Recommend :dataList="k.data"></Recommend>
 	<Card cardTitle="猜你喜欢"></Card>
 	</template>
+	
 
+<!--sports-->
 
-	<CommondityList v-if="k.type==='commondityList'" :dataList="k.data" ></CommondityList>
+<template v-if="k.type==='bannerList'">
+<Banner  :dataList="k.imgUrl"></Banner>
+</template>  
+	
+	<template  v-if="k.type==='iconList'">
+	<Icons :dataList="k.data"></Icons>
+	<Card cardTitle="热销爆品"></Card>
+	</template>  
+
+<template v-if="k.type==='hotList'" >
+<Hot :dataList="k.data"></Hot>
+<Card cardTitle="推荐店铺"></Card>
+</template>
+
+<template v-if="k.type==='shopList'">
+<Shop  :dataList="k.data"></Shop>
+<Card cardTitle="为您推荐"></Card>
+</template>
+<!--sports-->
+
+<CommondityList v-if="k.type==='commondityList'" :dataList="k.data" ></CommondityList>
+	
+
+	
 </block>
 </block>
 <view v-else>
@@ -50,25 +75,7 @@
 		 </swiper>
 		 
 	<!--推荐模版-->
-<!-- 		 <view class="iconfont icon-xiaoxi">嘻嘻😳</view>
-		 
-	 <IndexSwiper></IndexSwiper>
-	 <Recommend></Recommend>
-	 
-		<Card cardTitle="a"></Card>
-		
-	  <CommondityList></CommondityList> -->
-	<!--其他模版：户外，推荐-->
-		  
-<!-- 	  <Banner></Banner>
-	  <Icons></Icons>
 
-	<Card cardTitle="热销爆品"></Card>
-	<Hot></Hot>
-	<Card cardTitle="推荐店铺"></Card>
-	<Shop></Shop>
-	<Card cardTitle="为您推荐"></Card>
-	<CommondityList></CommondityList>	 -->
 
 </view>
 </template>
@@ -120,10 +127,8 @@
 			Shop,
 		},
 		onLoad() {
-			this.getClientHeight();
+			//this.getClientHeight();
 			this.__init();
-
-			
 
 		},
 		onReady() {
@@ -143,9 +148,10 @@
 			//getdata
 			__init(){
 				uni.request({
-					url:"http://192.168.0.3:3000/api/index_list/data",
+					url:"http://192.168.2.100:3000/api/index_list/data",
 					success: (res) => {
 						//console.log(res.data.data);
+						
 						let data=res.data.data;
 						this.topBar=data.topBar;
 						this.newTopBar=this.initData(data);
@@ -157,7 +163,10 @@
 				let arr=[];
 				//console.log(this.topBar.length);
 				for(let i=0;i<this.topBar.length;i++){
-					let obj={data:[]};
+					let obj={
+						data:[],
+						load:"first",
+						};
 					//获取首次数据
 					if(i==0){
 						obj.data=res.data;
@@ -175,6 +184,22 @@
 				}
 				this.topBarIndex=index;
 				this.scrollIntoIndex='top'+index;
+				
+				/*
+				每次滑动赋值,修正重复请求数据：
+				1>initData()添加一个load：first
+				2>获取load值判断。如果==first，则表示第一次访问
+				3>addData()中如果执行了此方法，则在最后把load值变成last
+				4>根据this.newTopBar[this.topBarIndex].load 值进行判断
+				
+				*/
+				 console.log(this.newTopBar[this.topBarIndex].load );
+				 console.log(this.topBarIndex)
+				 if( this.newTopBar[this.topBarIndex].load  ==='first'){
+				 	this.addData();
+				 }
+				 this.addData();
+
 			},
 			//finger move
 			onChangeTab(e){
@@ -183,7 +208,7 @@
 			//获取可视区高度
 			getClientHeight(){
 				const res=uni.getSystemInfoSync();
-				console.log(res.platform,res.statusBarHeight);
+			//	console.log(res.platform,res.statusBarHeight);
 				const system=res.platform;
 				if(system==='android'){
 					return 48+res.statusBarHeight;
@@ -192,6 +217,31 @@
 				}else{
 					return 0;
 				}
+			},
+			//滑动、点击滑块时显示不同的数据
+			addData(){
+				//拿到滑块索引
+				let index=this.topBarIndex;
+				//console.log(index);
+				let id=this.topBar[index].id;
+				//console.log(id);
+				//请求接口数据
+				uni.request({
+					url:"http://192.168.2.100:3000/api/index_list/"+id+"/data/1",
+					success: (res) => {
+						if(res.statusCode!==200){
+							return;
+						}else{
+						let data=res.data.data;
+						//console.log(res);
+						this.newTopBar[index].data=[...this.newTopBar[index].data,...data];	
+						}
+
+					}
+				});
+				//请求结束后重新赋值
+				this.newTopBar[index].load='last';
+				
 			}
             
 		}
