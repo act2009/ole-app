@@ -148,7 +148,7 @@
 			//getdata
 			__init(){
 				uni.request({
-					url:"http://192.168.2.100:3000/api/index_list/data",
+					url:"http://192.168.0.3:3000/api/index_list/data",
 					success: (res) => {
 						//console.log(res.data.data);
 						
@@ -198,7 +198,7 @@
 				 if( this.newTopBar[this.topBarIndex].load  ==='first'){
 				 	this.addData();
 				 }
-				 this.addData();
+				 // this.addData();
 
 			},
 			//finger move
@@ -227,7 +227,7 @@
 				//console.log(id);
 				//请求接口数据
 				uni.request({
-					url:"http://192.168.2.100:3000/api/index_list/"+id+"/data/1",
+					url:"http://192.168.0.3:3000/api/index_list/"+id+"/data/1",
 					success: (res) => {
 						if(res.statusCode!==200){
 							return;
