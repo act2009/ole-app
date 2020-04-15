@@ -5,6 +5,98 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+//首页第一次上拉加载更多的数据
+router.get('/api/index_list/1/data/2',function(req,res,next){
+	return res.json({
+		code:"0",
+		data:[
+			{
+				type:"commondityList",
+				data:[
+					{
+						id:1,
+						imgUrl:"../../static/img/commodity1.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"48.00",
+						oprice:"99.00",
+						discount:"5.8"
+					},
+					{
+						id:2,
+						imgUrl:"../../static/img/commodity2.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					},
+					{
+						id:3,
+						imgUrl:"../../static/img/commodity3.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					},
+					{
+						id:4,
+						imgUrl:"../../static/img/commodity4.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					}
+				]
+			},
+		]
+	});
+});	
+//运动户外第一次上拉加载更多的数据
+router.get('/api/index_list/2/data/2',function(req,res,next){
+	return res.json({
+		code:"0",
+		data:[
+			{
+				type:"commondityList",
+				data:[
+					{
+						id:1,
+						imgUrl:"../../static/img/commodity1.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"48.00",
+						oprice:"99.00",
+						discount:"5.8"
+					},
+					{
+						id:2,
+						imgUrl:"../../static/img/commodity2.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					},
+					{
+						id:3,
+						imgUrl:"../../static/img/commodity3.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					},
+					{
+						id:4,
+						imgUrl:"../../static/img/commodity4.jpg",
+						name:"【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1【经典款】Timberland添柏岚保暖冲锋衣三合一女装潮牌|A1GF1",
+						cprice:"148.00",
+						oprice:"399.00",
+						discount:"4.8"
+					}
+				]
+			},
+		]
+	});	
+});
+//运动户外第一次加载的数据
 router.get('/api/index_list/2/data/1',function(req,res,next){
 	return res.json({
 		code:"0",
@@ -162,7 +254,7 @@ router.get('/api/index_list/2/data/1',function(req,res,next){
 		]
 	});
 });
-
+//服饰内衣第一次加载的数据
 router.get('/api/index_list/3/data/1',function(req,res,next){
 	return res.json({
 		code:"0",
@@ -319,7 +411,7 @@ router.get('/api/index_list/3/data/1',function(req,res,next){
 
 
 
-
+//首页第一次加载的数据
 router.get('/api/index_list/data', function(req, res, next) {
 	//return res.writeHead(200, { "Content-Type":"text/html" , "Access-Control-Allow-Origin":"*"});
 	return res.send({
@@ -406,7 +498,7 @@ router.get('/api/index_list/data', function(req, res, next) {
 			],
 		}
 	});
-	res.end();
+	//res.end();
 
 });
 

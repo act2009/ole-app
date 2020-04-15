@@ -19,7 +19,7 @@
 		 <swiper @change="onChangeTab" :current="topBarIndex" :style="'height:'+clientHight+'px;'">
 		 	<swiper-item v-for="(item,index) in newTopBar" :key="index">
 		 		<!-- <view class="home-data"> </view> -->
-				<scroll-view  scroll-y="true" :style="'height:'+clientHight+'px;'">
+				<scroll-view  scroll-y="true" :style="'height:'+clientHight+'px;'" @scrolltolower="loadMore(index)">
 	
 	<block v-if="item.data.length > 0">
 		
@@ -63,6 +63,10 @@
 </block>
 <view v-else>
 	没有了，没有数据了。
+</view>
+
+<view class="load-text font-color">
+    {{item.loadText}}
 </view>
 						
 </scroll-view>
@@ -166,6 +170,7 @@
 					let obj={
 						data:[],
 						load:"first",
+						loadText:"上拉加载更多...",
 						};
 					//获取首次数据
 					if(i==0){
@@ -219,15 +224,17 @@
 				}
 			},
 			//滑动、点击滑块时显示不同的数据
-			addData(){
+			addData(callback){
 				//拿到滑块索引
 				let index=this.topBarIndex;
 				//console.log(index);
 				let id=this.topBar[index].id;
 				//console.log(id);
-				//请求接口数据
+				//请求不同的接口数据
+				let page=Math.ceil(this.newTopBar[index].data.length/5)+1;
+				console.log(page);		
 				uni.request({
-					url:"http://192.168.0.3:3000/api/index_list/"+id+"/data/1",
+					url:"http://192.168.0.3:3000/api/index_list/"+id+"/data/"+page+"",
 					success: (res) => {
 						if(res.statusCode!==200){
 							return;
@@ -239,9 +246,22 @@
 
 					}
 				});
+				
+
+				
 				//请求结束后重新赋值
 				this.newTopBar[index].load='last';
-				
+				if(typeof callback=='function'){
+					callback();
+				}
+			},
+			loadMore(index){
+				this.newTopBar[index].loadText='加载中...';
+				console.log('loadMore：'+index);
+				//当请求完成时，文字又变成上拉加载更多
+				this.addData(()=>{
+					this.newTopBar[index].loadText='上拉加载更多.';
+				});
 			}
             
 		}
@@ -277,5 +297,10 @@
 	.font-active-color{
 		padding: 10rpx 0;
 		border-bottom: 6rpx solid #49DBFB;
+	}
+	.load-text{
+		text-align: center;
+		line-height: 60rpx;
+		border-top: 2rpx solid #636263;
 	}
 </style>
