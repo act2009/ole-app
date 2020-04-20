@@ -85,6 +85,7 @@
 </template>
 
 <script>
+	import $http        from '@/common/api/request.js'
 	import IndexSwiper from '@/components/index/IndexSwiper.vue'
 	import Recommend   from '@/components/index/Recommend.vue'
 	import Card        from '@/components/common/Card.vue'
@@ -151,16 +152,27 @@
 		methods: {
 			//getdata
 			__init(){
-				uni.request({
-					url:"http://192.168.0.3:3000/api/index_list/data",
-					success: (res) => {
-						//console.log(res.data.data);
+			    $http.request({
+					url:"/index_list/data"
+				}).then((res)=>{
+					this.topBar=res.topBar;
+					this.newTopBar=this.initData(res);
+				}).catch(()=>{
+					uni.showToast({
+						title:'请求失败',
+						icon:'none'
+					})
+				});
+		// 		uni.request({
+		// 			url:"http://192.168.0.3:3000/api/index_list/data",
+		// 			success: (res) => {
+		
 						
-						let data=res.data.data;
-						this.topBar=data.topBar;
-						this.newTopBar=this.initData(data);
+		// 				let data=res.data.data;
+		// 				this.topBar=data.topBar;
+		// 				this.newTopBar=this.initData(data);
 						
-					}})
+		// 			}})
 			},
 			//add data
 			initData(res){
@@ -223,29 +235,44 @@
 					return 0;
 				}
 			},
+			
 			//滑动、点击滑块时显示不同的数据
 			addData(callback){
+
 				//拿到滑块索引
 				let index=this.topBarIndex;
-				//console.log(index);
+				
 				let id=this.topBar[index].id;
-				//console.log(id);
+				
 				//请求不同的接口数据
 				let page=Math.ceil(this.newTopBar[index].data.length/5)+1;
-				console.log(page);		
-				uni.request({
-					url:"http://192.168.0.3:3000/api/index_list/"+id+"/data/"+page+"",
-					success: (res) => {
-						if(res.statusCode!==200){
-							return;
-						}else{
-						let data=res.data.data;
-						//console.log(res);
-						this.newTopBar[index].data=[...this.newTopBar[index].data,...data];	
-						}
-
-					}
+				
+				//请求数据
+				$http.request({
+					url:'/index_list/'+id+'/data/'+page+''
+				}).then((res)=>{
+					this.newTopBar[index].data=[...this.newTopBar[index].data,...res];
+				}).catch(()=>{
+					uni.showToast({
+						title:'请求失败',
+						icon:'none'
+					})
 				});
+				
+				//console.log(page);		
+				// uni.request({
+				// 	url:"http://192.168.0.3:3000/api/index_list/"+id+"/data/"+page+"",
+				// 	success: (res) => {
+				// 		if(res.statusCode!==200){
+				// 			return;
+				// 		}else{
+				// 		let data=res.data.data;
+					
+				// 		this.newTopBar[index].data=[...this.newTopBar[index].data,...data];	
+				// 		}
+
+				// 	}
+				// });
 				
 
 				
