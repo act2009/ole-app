@@ -3,9 +3,9 @@
      <view class="index">
          <!-- #ifdef H5 -->
          <view class="custom-nav">
-         				<view class="iconfont icon-sousuo"></view>
+         				<view class="iconfont icon-sousuo" @click="goNavLeft()"></view>
          				<text>百年奥莱</text>
-         				<view class="iconfont icon-xiaoxi"></view>	 
+         				<view class="iconfont icon-xiaoxi" @click="goNavRight()"></view>	 
          </view>
          <!-- #endif -->
 		 
@@ -149,6 +149,9 @@
 				}
 			});
 		},
+		// onNavigationBarButtonTap(e){
+		// 	console.log(e);
+		// },
 		methods: {
 			//getdata
 			__init(){
@@ -282,6 +285,7 @@
 					callback();
 				}
 			},
+			//load more
 			loadMore(index){
 				this.newTopBar[index].loadText='加载中...';
 				console.log('loadMore：'+index);
@@ -289,7 +293,18 @@
 				this.addData(()=>{
 					this.newTopBar[index].loadText='上拉加载更多.';
 				});
-			}
+			},
+			//goto search page
+			goNavLeft(){
+				console.log('left');
+				uni.navigateTo({
+					url:'../search/search'
+				})
+				
+			},
+			goNavRight(){
+				console.log('right');
+			},
             
 		}
 	}
